@@ -3,17 +3,17 @@
 ## フォルダ
 - baremetal_ek_ra8m1_ep
   - ルネサスのベアメタルサンプル
-    - https://github.com/renesas/ra-fsp-examples/tree/master/example_projects/ek_ra8m1/baremetal/baremetal_ek_ra8m1_ep
+    - [元のコード](https://github.com/renesas/ra-fsp-examples/tree/master/example_projects/ek_ra8m1/baremetal/baremetal_ek_ra8m1_ep)
     - DOCの確認後，無限ループでLEDの点灯とログ出力を行う
   - 変更点
     - GPIO出力
       - P601/P602を使用
     - LEDの周期点滅
     - S1/S2による割込み
-      - 
+
 - doc_tz_ek_ra8m1
   - ルネサスのTZのサンプル
-    - https://github.com/renesas/ra-fsp-examples/tree/master/example_projects/ek_ra8m1/trustzone/doc
+    - [元のコード](https://github.com/renesas/ra-fsp-examples/tree/master/example_projects/ek_ra8m1/trustzone/doc)
   - SC関数
     - LEDの操作
       -  fsp_err_t led_set_guard (bsp_io_port_pin_t pin, bsp_io_level_t level)
@@ -72,9 +72,6 @@
     - IRQ12 : 0x0d
     - IRQ13 : 0x0e
 
-## FSPの基本
-- Secureで使用しないデバイスやピンはすべてNonSecureから操作可能．
-- 割込みも同様
 
 ## TrustZone
 
@@ -101,16 +98,21 @@ BSP_CMSE_NONSECURE_ENTRY doc_event_t doc_cfg_event_read_guard (void)
 - 対象のIRQのピンをSecureでコンフィギュレーションしないようにする．
 - NonSecureで通常のSecureと同じようにスタックを追加する．
 
+### FSPでの扱い
+- Secureで使用しないデバイスやピンはすべてNonSecureから操作可能．
+- 割込みも同様
 
-## プロジェクトのビルド
+## e2studioの基本
+
+### プロジェクトのビルド
 - configure.xml をダブルクリックして FSP Configuration を起動
 - 右上の Generate Project Content のボタンを押す
 - 左のプロジェクトを指定して右クリックしてビルド
 
-## デバッグ
+### デバッグ
 - 左のプロジェクトを指定して右クリックしてDebu 
-- 
-## ログの出力方法
+
+### ログの表示方法
 - 概要
   - ルネサスのサンプルのコンソール出力はUARTではなく，デバッガ経由で出力される
   - 出力されたログは，J-Link RTT Viwer 経由で見る
@@ -127,12 +129,14 @@ BSP_CMSE_NONSECURE_ENTRY doc_event_t doc_cfg_event_read_guard (void)
 - 再接続
 - File -> Connect を選択
 
-## GPIOの出力として使用
+## FSPの使用方法
+
+### GPIOの出力として使用
 - FSPコンフィギュレータから対象のピンを選択してOutPut modeに設定
 - 出力用マクロ
   - R_IOPORT_PinWrite(&g_ioport_ctrl, BSP_IO_PORT_06_PIN_01, BSP_IO_LEVEL_HIGH);
 
-## GPIOの入力（割込み）として使用  
+### GPIOの入力（割込み）として使用  
 - S2:P008(IRQ12)
 - S1:P009(IRQ13)
 - FSPの操作
